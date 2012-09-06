@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Babel by martin-damien</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/martin-damien/babel">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/martin-damien/babel/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/martin-damien/babel/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Babel</h1>
+          <p>Babel is a set of simple internationalisation tools for LÖVE 2D.</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/martin-damien">martin-damien</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>BABEL</h1>
+
+<p>Babel is a set of simple internationalisation tools for LÖVE 2D.</p>
+
+<h2>Setting it up</h2>
+
+<p>Simply copy <code>babel.lua</code> in your project folder and modify the <code>main.lua</code> file
+like this :</p>
+
+<div class="highlight"><pre><span class="nb">require</span> <span class="s2">"</span><span class="s">path to babel.lua (without '.lua')"</span>
+
+<span class="k">function</span> <span class="nc">love</span><span class="p">.</span><span class="nf">load</span><span class="p">()</span>
+
+    <span class="n">babel</span><span class="p">.</span><span class="n">init</span><span class="p">({</span> <span class="n">locale</span> <span class="o">=</span> <span class="s2">"</span><span class="s">fre-FR"</span> <span class="p">})</span>
+
+<span class="k">end</span>
+</pre></div>
+
+<h2>Use babel</h2>
+
+<h3>Initialisation</h3>
+
+<p>You must initialize babel in <code>love.load()</code>.</p>
+
+<div class="highlight"><pre><span class="n">babel</span><span class="p">.</span><span class="n">init</span><span class="p">()</span>
+</pre></div>
+
+<p><code>babel.init()</code> can get a table as argument with the following indexes :</p>
+
+<ul>
+<li>
+<code>locale</code> The locale to use.</li>
+<li>
+<code>locales_path</code> The path to the translation files.</li>
+</ul><h3>Translate text</h3>
+
+<p>There is two function to translate text : <code>babel.translate</code> and <code>_</code> (who is an
+alias to the first function).</p>
+
+<div class="highlight"><pre><span class="n">_</span><span class="p">(</span> <span class="s2">"</span><span class="s">Text to translate"</span> <span class="p">)</span>
+<span class="c1">-- or</span>
+<span class="n">babel</span><span class="p">.</span><span class="n">translate</span><span class="p">(</span> <span class="s2">"</span><span class="s">Text to translate"</span> <span class="p">)</span>
+</pre></div>
+
+<h4>Using variables in translated texts</h4>
+
+<p>You can use variables in translations by passing extra parameters to the
+translate function :</p>
+
+<div class="highlight"><pre><span class="n">_</span><span class="p">(</span> <span class="s2">"</span><span class="s">Hello %name%"</span><span class="p">,</span> <span class="p">{</span> <span class="n">name</span> <span class="o">=</span> <span class="s2">"</span><span class="s">your name"</span> <span class="p">}</span> <span class="p">)</span>
+</pre></div>
+
+<p>You can use as many entries you need in the extra <code>table</code>.</p>
+
+<h2>Create and manage locale files</h2>
+
+<p>All the translations are stored in a lua file with the name of the locale (for
+ex. <code>eng-UK.lua</code> or <code>fre-FR.lua</code>. Thoses files are stored in the folder given
+in <code>babel.init()</code> (or in a <code>translations</code> folder in the same folder than
+<code>babel.lua</code> if none given).</p>
+
+<h3>Structure of a locale file</h3>
+
+<div class="highlight"><pre><span class="n">LANGUAGE</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="n">formats</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1">-- Will be available in futur versions</span>
+    <span class="p">},</span>
+
+    <span class="c1">-- List of all the translations</span>
+    <span class="n">translations</span> <span class="o">=</span> <span class="p">{</span>
+
+        <span class="c1">-- The key of each element is the text in parameter of babel.translate()</span>
+        <span class="p">[</span><span class="s1">'</span><span class="s">Hello world'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"</span><span class="s">Bonjour le monde"</span><span class="p">,</span>
+        <span class="p">[</span><span class="s1">'</span><span class="s">My name is %name%'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"</span><span class="s">Mon nom est %name%"</span>
+
+    <span class="p">}</span>
+
+<span class="p">}</span>
+<span class="k">return</span> <span class="n">LANGUAGE</span>
+</pre></div>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
